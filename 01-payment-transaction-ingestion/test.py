@@ -32,31 +32,31 @@ def validate_transactions(df: pd.DataFrame) -> None:
 
     # DataFrame is not empty
     if df.empty:
-        raise ValueError("DataFrame is empty.")
+        raise ValueError("Dataframe is empty.")
 
     # Required columns
-    for column in required_columns:
-        if column not in df.columns:
-            raise ValueError(f"Missing required column: {column}")
+    for col in required_columns:
+        if col not in df.columns():
+            raise ValueError(f"column {col} is not in dataframe.")
 
     # Check ID has no missing values
     if df["ID"].isnull().any():
-        raise ValueError("ID contains missing values.")
+        raise ValueError("ID is null")
 
     # Check ID has no duplicates
     if df["ID"].duplicated().any():
-        raise ValueError("ID contains duplicate values.")
+        raise ValueError("ID is duplicated")
 
     # Check Transaction Date has no missing values
     if df["Transaction Date"].isnull().any():
-        raise ValueError("Transaction Date contains missing values.")
+        raise ValueError("Transaction Date is null")
 
     # Check Transaction Amount has no missing values
     if df["Transaction Amount"].isnull().any():
-        raise ValueError("Transaction Amount contains missing values.")
+        raise ValueError("Transaction Amount is null")
 
     # Check Transaction Amount is numeric
-    if not pd.api.types.is_numeric_dtype(df["Transaction Amount"]):
-        raise TypeError("Transaction Amount must be numeric.")
+    if not pd.api.type.is_numeric_dtype(df["Transaction Amount"]):
+        raise ValueError("Transaction Amount is not numeric")
 
     print("✅ Validation passed.")

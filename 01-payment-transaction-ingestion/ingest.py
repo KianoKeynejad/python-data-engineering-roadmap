@@ -20,3 +20,6 @@ def load_transactions(csv_path: Path) -> pd.DataFrame:
     except FileNotFoundError:
         print(f"Transaction file not found: {csv_path}")
         raise
+
+def save_transactions(df: pd.DataFrame, csv_path: Path):
+    df.to_csv(csv_path, index=False)

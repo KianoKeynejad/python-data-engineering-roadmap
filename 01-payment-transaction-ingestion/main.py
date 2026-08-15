@@ -1,6 +1,50 @@
-def main() -> None:
-    print("=== Data Pipeline Started ===")
+from pathlib import Path
 
+from ingest import load_transactions, save_transactions
+from explore import explore_transactions
+from validate import validate_transactions
+from transform import transform_transactions
+from database import connect_database
+
+def main():
+
+    csv_path = Path("data/raw/transactions.csv")
+
+    df = load_transactions(csv_path)
+
+    explore_transactions(df)
+
+    validate_transactions(df)
+
+    df = transform_transactions(df)
+
+    processed_path = Path("data/processed/transactions_clean.csv")
+
+    save_transactions(df, processed_path)
+
+    print(
+        df[
+            [
+                "Transaction Date",
+                "Year",
+                "Month",
+                "Day",
+                "Hour",
+            ]
+        ].head()
+    )
+
+    connect_database()
 
 if __name__ == "__main__":
     main()
+
+"""
+This is the standard Python entry point.
+
+It means:
+
+"If this file is being run directly, execute the main() function."
+
+This allows main.py to be run as the application, while also allowing its functions to be imported into other modules without automatically executing the pipeline.
+"""
