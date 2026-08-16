@@ -1,3 +1,4 @@
+import pandas as pd
 from sqlalchemy import create_engine
 
 
@@ -13,16 +14,24 @@ def connect_database():
     URL = f"postgresql+psycopg2://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}"
 
     try:
-        # Create SQLAlchemy engine
-        engine = create_engine(URL)
+        engine = create_engine(URL)   # Create SQLAlchemy engine
 
-        # Test database connection
-        with engine.connect():
+        with engine.connect():        # Test database connection
             print("Database connection successful!")
 
-        # Return engine
-        return engine
+        return engine                 # Return engine
 
     except Exception as e:
         print(f"Database connection failed: {e}")
         raise
+
+
+
+
+def load_transactions_to_database(df, engine):
+    df.to_sql(
+        "transactions",
+        con=engine,
+        if_exists="append",
+        index=False
+    )

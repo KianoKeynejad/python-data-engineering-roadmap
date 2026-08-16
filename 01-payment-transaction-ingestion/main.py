@@ -4,7 +4,7 @@ from ingest import load_transactions, save_transactions
 from explore import explore_transactions
 from validate import validate_transactions
 from transform import transform_transactions
-from database import connect_database
+from database import connect_database, load_transactions_to_database
 
 def main():
 
@@ -34,7 +34,9 @@ def main():
         ].head()
     )
 
-    connect_database()
+    engine = connect_database()
+    load_transactions_to_database(df, engine)
+
 
 if __name__ == "__main__":
     main()
