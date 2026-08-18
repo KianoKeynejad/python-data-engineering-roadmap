@@ -1,5 +1,5 @@
 import pandas as pd
-
+import logging
 
 def transform_transactions(df):
 
@@ -33,5 +33,6 @@ def transform_transactions(df):
     df["Day"] = df["Transaction Date"].dt.day
     df["Hour"] = df["Transaction Date"].dt.hour
 
+    logging.info("Transaction transformation completed")
     # Return transformed DataFrame
     return df

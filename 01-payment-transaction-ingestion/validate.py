@@ -17,6 +17,7 @@ Our first validation rules:
 ✓ Transaction Amount has no missing values
 """
 import pandas as pd
+import logging
 
 
 def validate_transactions(df: pd.DataFrame) -> None:
@@ -58,5 +59,3 @@ def validate_transactions(df: pd.DataFrame) -> None:
     # Check Transaction Amount is numeric
     if not pd.api.types.is_numeric_dtype(df["Transaction Amount"]):
         raise TypeError("Transaction Amount must be numeric.")
-
-    print("✅ Validation passed.")
