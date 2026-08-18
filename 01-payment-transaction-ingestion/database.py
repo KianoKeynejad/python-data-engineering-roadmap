@@ -1,14 +1,19 @@
-from sqlalchemy import create_engine
+import os
 import logging
+
+from dotenv import load_dotenv
+from sqlalchemy import create_engine
+
+load_dotenv()
 
 
 def connect_database():
 
-    USERNAME = "postgres"
-    PASSWORD = "Emilie1234$"
-    HOST = "localhost"
-    PORT = 5432
-    DATABASE = "payment_transactions"
+    USERNAME = os.getenv("DB_USERNAME")
+    PASSWORD = os.getenv("DB_PASSWORD")
+    HOST = os.getenv("DB_HOST")
+    PORT = os.getenv("DB_PORT")
+    DATABASE = os.getenv("DB_NAME")
 
     # Create database connection URL
     URL = f"postgresql+psycopg2://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}"
@@ -32,7 +37,7 @@ def load_transactions_to_database(df, engine):
     df.to_sql(
         "transactions",
         con=engine,
-        if_exists="append",
+        if_exists="replace",
         index=False
     )
 

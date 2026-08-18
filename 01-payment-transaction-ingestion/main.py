@@ -20,7 +20,6 @@ def main():
     explore_transactions(df)
 
     validate_transactions(df)
-    logger.info("Validation passed")
 
     df = transform_transactions(df)
 
