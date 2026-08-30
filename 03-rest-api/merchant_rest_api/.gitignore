@@ -1,0 +1,9 @@
+.env
+.venv
+__pycache__
+*.pyc
+.idea
+
+merchant.csv
+
+KianoTest.py
