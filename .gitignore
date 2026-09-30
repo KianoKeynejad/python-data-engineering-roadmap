@@ -1,0 +1,20 @@
+# Common
+__pycache__/
+*.pyc
+.venv/
+.env
+.idea/
+.DS_Store
+*.log
+
+# Project 1
+01-payment-transaction-ingestion/data/raw/
+01-payment-transaction-ingestion/data/processed/
+
+# Project 3
+03-rest-api/merchant_rest_api/*.csv
+Project 3 Steps Breakdown.txt
+*.bkp
+
+# Test files
+KianoTest.py

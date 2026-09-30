@@ -24,7 +24,6 @@ def connect_database():
         # Test database connection
         with engine.connect():
             logging.info("Database connection successful!")
-
         return engine
 
     except Exception:
