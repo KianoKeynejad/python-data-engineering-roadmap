@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+
 load_dotenv()
 
 
@@ -17,19 +18,20 @@ DATABASE_URL = f"postgresql+psycopg2://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DATA
 
 engine = create_engine(DATABASE_URL)
 
-sessionLocal = sessionmaker(
-    autocommit=False,
-    autoflush=False,
-    bind=engine
+SessionLocal = sessionmaker(
+    bind=engine,
+    autoflush=False
 )
 
 def get_db():
-    db = sessionLocal()
+    db = SessionLocal()
     try:
         yield db
     finally:
         db.close()
 
+# below means : Only run this code if I execute database Python file directly.
+# It's simply a manual database connection test.(in terminal :python app/database.py)
 if __name__ == "__main__":
     with engine.connect() as connection:
         print("Database connection established")
