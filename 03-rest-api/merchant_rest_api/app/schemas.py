@@ -1,8 +1,8 @@
 #  `schemas.py`  | API layer                 | **What data the API accepts/returns**                 |
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from datetime import datetime
-
+from typing import Annotated, Literal
 
 # Define the structure and data types of a merchant API response
 class MerchantResponse(BaseModel):
@@ -34,31 +34,28 @@ print(merchant)
 
 class TransactionResponse(BaseModel):
     transaction_date: datetime
-    transaction_type: str
     card_type: str
     transaction_amount: float
-    purchase: float
-    surcharge: float
-    payment_status: str
     payment_method: str
     merchant_id: str
     transaction_id: str
-    settlement_amount: float
+
 
 # Test the TransactionResponse model
 transaction = TransactionResponse(
     transaction_date=datetime(2026, 5, 1, 10, 30, 0),
-    transaction_type="Purchase",
     card_type="Visa",
     transaction_amount=100.50,
-    purchase=100.00,
-    surcharge=0.50,
-    payment_status="Approved",
     payment_method="Card",
     merchant_id="SP7020000018176",
     transaction_id="f80a8f42-a8f3-54c6-a6e5-c98732fb7a95",
-    settlement_amount=100.50
 )
 
 print(transaction)
+
+class TransactionCreate(BaseModel):
+    merchant_id: str
+    card_type: str
+    transaction_amount: Annotated[float, Field(gt=0)]
+    payment_method: Literal["Card"]
 

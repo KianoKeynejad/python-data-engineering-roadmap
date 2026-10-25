@@ -5,21 +5,22 @@
        ↓
 | `models.py`   | Database layer            | **What the database table looks like**                | → What data do we have?
        ↓
-| `schemas.py`  | API layer                 | **What data the API accepts/returns**                 | → What data do we expose?
+| `schemas.py`  | API layer                 | **What data the API accepts/returns**                 | → What data do we expose? - schemas.py validates the request's structure and data types.
        ↓
-| `services.py` | Business logic layer      | **What the application does with the data**           | → What do we do with the data?
+| `services.py` | Business logic layer      | **What the application does with the data**           | → What do we do with the data?  - services.py contains the business logic, including checking whether a merchant exists in PostgreSQL.
        ↓
-| `main.py`     | API/route layer           | **How the API receives requests and sends responses** | → How does the client access it?
+| `main.py`     | API/route layer           | **How the API receives requests and sends responses** | → How does the client access it?  - main.py handles the HTTP request and response.
 """
 
 # http://127.0.0.1:8000/docs#/
 
-from fastapi import FastAPI, Depends, Path, HTTPException
+from fastapi import FastAPI, Depends, Path, HTTPException, Query
 from sqlalchemy.orm import Session
+from datetime import datetime
 
 from app.database import get_db
-from app.services import get_merchants, get_merchant, get_transactions, get_transaction, get_merchant_transactions
-from app.schemas import MerchantResponse, TransactionResponse
+from app.services import get_merchants, get_merchant, get_transactions, get_transaction, get_merchant_transactions, create_transaction
+from app.schemas import MerchantResponse, TransactionResponse, TransactionCreate
 
 app = FastAPI()
 
@@ -59,8 +60,19 @@ def get_merchant_by_id(
 
 
 @app.get("/transactions", response_model= list[TransactionResponse])
-def get_all_transactions(db: Session = Depends(get_db)):
-    transactions = get_transactions(db)
+def get_all_transactions(
+        db: Session = Depends(get_db),
+        payment_status: str | None = None,
+        merchant_id: str | None = None,
+        start_datetime: datetime | None = None,
+        end_datetime: datetime | None = None,
+        limit: int = Query(default=100, ge=0, le=100),
+        offset: int = Query(default=0, ge=0),
+):
+    transactions = get_transactions(
+        db, payment_status, merchant_id, start_datetime, end_datetime, limit, offset
+    )
+
     return transactions
 
 
@@ -97,3 +109,11 @@ def get_merchant_all_transactions(
     transactions = get_merchant_transactions(db, merchant_id)
     return transactions
 
+@app.post("/transactions", response_model=TransactionResponse, status_code=201)
+def create_transaction_endpoint(
+        transaction_data: TransactionCreate,
+        db: Session = Depends(get_db)
+):
+    new_transaction = create_transaction(db, transaction_data)
+
+    return new_transaction
