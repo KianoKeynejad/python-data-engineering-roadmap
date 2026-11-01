@@ -4,11 +4,13 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 from app.models import Merchant, Transaction
 from datetime import datetime, timezone
-from .schemas import TransactionCreate
+from app.schemas import TransactionCreate
 from fastapi import HTTPException
 from uuid import uuid4
 from sqlalchemy.exc import SQLAlchemyError
+import logging
 
+logger = logging.getLogger(__name__)
 
 # get_merchants
 def get_merchants(db: Session):
@@ -103,10 +105,12 @@ def create_transaction(
     try:
         db.add(new_transaction)
         db.commit()
+        logger.info("Transaction created successfully")
         db.refresh(new_transaction)
 
     except SQLAlchemyError:
         db.rollback()
+        logger.exception("Failed to create transaction")
         raise HTTPException(
             status_code=500,
             detail="Failed to create transaction"
