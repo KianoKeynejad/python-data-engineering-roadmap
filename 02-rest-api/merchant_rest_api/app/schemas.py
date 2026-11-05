@@ -54,8 +54,8 @@ transaction = TransactionResponse(
 print(transaction)
 
 class TransactionCreate(BaseModel):
-    merchant_id: str
-    card_type: str
+    merchant_id: Annotated[str, Field(min_length=1, max_length=50)]
+    card_type: Annotated[str, Field(min_length=1, max_length=30)]
     transaction_amount: Annotated[float, Field(gt=0)]
     payment_method: Literal["Card"]
 

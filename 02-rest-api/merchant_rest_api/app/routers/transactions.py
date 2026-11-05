@@ -11,9 +11,12 @@ from app.services import (
     create_transaction,
 )
 from app.schemas import TransactionResponse, TransactionCreate
+from app.security import verify_api_key
 
-router = APIRouter()
 
+router = APIRouter(
+    dependencies=[Depends(verify_api_key)]
+)
 
 @router.get("/transactions", response_model=list[TransactionResponse])
 def get_all_transactions(
@@ -36,10 +39,7 @@ def get_all_transactions(
     )
 
 
-@router.get(
-    "/transactions/{transaction_id}",
-    response_model=TransactionResponse,
-)
+@router.get("/transactions/{transaction_id}",response_model=TransactionResponse)
 def get_transaction_by_id(
     transaction_id: str = Path(min_length=1, max_length=50),
     db: Session = Depends(get_db),

@@ -27,35 +27,81 @@
 |               |                            | → How are the API endpoints connected?          |
 
 """
-# http://127.0.0.1:8000/docs#/
 
+
+#  http://127.0.0.1:8000/docs#/
+import os
 import logging
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
-
+from sqlalchemy import text
+from fastapi import HTTPException
 from app.database import get_db
 from app.routers import merchants, transactions
+from fastapi.middleware.cors import CORSMiddleware
+
+# LOGGING CONFIGURATION
 
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(name)s - %(message)s"
 )
 
-logger = logging.getLogger(__name__)
+
+# FASTAPI APPLICATION INITIALISATION
+app = FastAPI(
+    title="Merchant REST API",
+    version="1.0.0",
+    debug=os.getenv("DEBUG", "false").lower() == "true",
+    description=(
+            "API for retrieving merchant information and managing "
+            "payment transactions. Supports merchant lookups, "
+            "transaction filtering, pagination and transaction creation."
+        )
+)
+
+# CORS CONFIGURATION
+allowed_origins = os.getenv(
+    "ALLOWED_ORIGINS",
+    "http://localhost:3000"
+).split(",")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=allowed_origins,
+    allow_credentials=False,
+    allow_methods=["GET", "POST"],
+    allow_headers=["Content-Type", "X-API-Key"],
+)
 
 
-app = FastAPI()
-
+# ROUTER REGISTRATION
 app.include_router(merchants.router)
 app.include_router(transactions.router)
 
 
-# Testing the application
+# TESTING THE APPLICATION
 @app.get("/")
 def root():
     return {"message": "Testing is done"}
 
+from sqlalchemy import text
+
+
+# Testing database connectivity
 @app.get("/test-db")
 def test_database(db: Session = Depends(get_db)):
-    return {"message": "Database connection successful"}
+    try:
+        db.execute(text("SELECT 1"))
+
+        return {"message": "Database connection successful"}
+
+    except Exception:
+        logger.exception("Database connection failed")
+
+        raise HTTPException(
+            status_code=500,
+            detail="Database connection failed"
+        )
+
 
