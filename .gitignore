@@ -50,3 +50,11 @@ python_practice/
 # BACKUP FILES
 # ============================================================
 *.bkp
+
+
+# Personal and development files
+/.idea/
+/KianoTest.py
+/Python Data Engineering roadmap.docx
+/merchants.csv
+/python_practice/
