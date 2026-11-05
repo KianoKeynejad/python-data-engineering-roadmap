@@ -1,20 +1,52 @@
-# Common
+
+# ============================================================
+# PYTHON
+# ============================================================
 __pycache__/
 *.pyc
 .venv/
-.env
-.idea/
-.DS_Store
 *.log
 
-# Project 1
+
+# ============================================================
+# ENVIRONMENT VARIABLES & SECRETS
+# ============================================================
+.env
+.env.*
+!.env.example
+
+
+# ============================================================
+# IDE & OPERATING SYSTEM
+# ============================================================
+.idea/
+.DS_Store
+
+
+# ============================================================
+# PROJECT 1 - DATA PIPELINE
+# ============================================================
 01 - End-to-End Payments Data Pipeline ( Ingestion and ETL Automation )/data/raw/
 01 - End-to-End Payments Data Pipeline ( Ingestion and ETL Automation )/data/processed/
 
-# Project 3
-03-rest-api/merchant_rest_api/*.csv
-Project 3 Steps Breakdown.txt
-*.bkp
 
-# Test files
+# ============================================================
+# PROJECT 2 - REST API
+# ============================================================
+02-rest-api/merchant_rest_api/*.csv
+02-rest-api/merchant_rest_api/*.bkp
+
+
+# ============================================================
+# LOCAL PRACTICE & PERSONAL NOTES
+# ============================================================
 KianoTest.py
+Project 2 Steps Breakdown.txt
+Python Data Engineering roadmap.docx
+python_practice/
+
+
+# ============================================================
+# BACKUP FILES
+# ============================================================
+*.bkp
