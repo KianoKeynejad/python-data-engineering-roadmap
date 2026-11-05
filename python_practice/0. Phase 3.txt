@@ -1,0 +1,112 @@
+going forward for these practices :
+- 12-16 questions ( 3 or 4 if it is need for rach level max (easy , intermidiate , difficult )
+- must related to our projects
+- try new and different example in each question
+
+Phase 3 — Merchant API
+
+Fundamental concepts to learn and practice
+
+1. Python Classes & Objects
+class
+Creating objects
+__init__()
+self
+Instance attributes
+Instance methods
+
+2. Type Hints
+str
+int
+float
+bool
+Type annotations for variables
+Type annotations for function parameters
+Type annotations for return values
+
+
+3. Functions
+def
+Parameters
+Arguments
+Default parameters
+return
+Calling functions
+
+4. Dictionaries
+Creating dictionaries
+Key/value pairs
+Accessing values
+Adding/updating values
+Nested dictionaries
+Dictionary → JSON concept
+
+5. Lists
+Creating lists
+Accessing items
+Looping through lists
+List of dictionaries
+List of objects
+6. Loops
+for
+Iterating through lists
+Iterating through database results
+7. Conditional Logic
+if
+elif
+else
+Checking whether something exists
+Basic validation logic
+8. Exceptions
+try
+except
+raise
+Understanding errors vs exceptions
+Handling expected failures
+
+9. Imports & Modules
+import
+from ... import ...
+Creating your own modules
+Importing classes/functions from another file
+
+10. Pydantic Fundamentals
+BaseModel
+Creating a Pydantic model
+Fields
+Type validation
+Required vs optional fields
+Basic validation
+Model → dictionary/JSON concept
+
+11. SQLAlchemy Fundamentals
+Engine
+Database session
+Session object
+Querying
+Filtering
+Getting results
+Adding records
+Committing changes
+
+12. Dependency Injection — Basic Concept
+What a dependency is
+What Depends() does
+Passing a dependency into a function
+Database session lifecycle
+
+13. FastAPI Fundamentals
+Creating FastAPI()
+Routes
+HTTP GET
+Path parameters
+Query parameters
+Request body
+Response models
+HTTP status codes
+
+14. API Error Handling
+HTTPException
+404 Not Found
+400 Bad Request
+Returning appropriate errors

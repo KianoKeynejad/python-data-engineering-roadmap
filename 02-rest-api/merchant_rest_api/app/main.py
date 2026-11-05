@@ -28,8 +28,10 @@
 
 """
 
+# uvicorn app.main:app --reload
 
 #  http://127.0.0.1:8000/docs#/
+
 import os
 import logging
 from fastapi import FastAPI, Depends

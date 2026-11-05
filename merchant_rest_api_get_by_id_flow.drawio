@@ -1,0 +1,154 @@
+<mxfile host="app.diagrams.net" modified="2026-10-01T00:00:00.000Z" agent="ChatGPT" version="28.2.0">
+  <diagram id="merchant-api-flow" name="Merchant API - GET by ID">
+    <mxGraphModel dx="1600" dy="1200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="2400" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="title" value="Merchant REST API — GET /merchants/{merchant_id}" style="text;html=1;strokeColor=none;fillColor=none;fontSize=24;fontStyle=1;fontColor=#1F2937;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="450" y="20" width="700" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="subtitle" value="Detailed request → FastAPI → SQLAlchemy → PostgreSQL → Pydantic → JSON response flow" style="text;html=1;strokeColor=none;fillColor=none;fontSize=13;fontColor=#6B7280;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="350" y="65" width="900" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- Client -->
+        <mxCell id="client" value="1. CLIENT&lt;br&gt;&lt;b&gt;Sends HTTP GET request&lt;/b&gt;&lt;br&gt;GET /merchants/M001" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1976D2;fontSize=14;fontStyle=1;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="500" y="120" width="600" height="85" as="geometry"/>
+        </mxCell>
+
+        <!-- FastAPI -->
+        <mxCell id="request" value="2. FASTAPI RECEIVES REQUEST&lt;br&gt;&lt;br&gt;HTTP server receives the request and matches the URL to the API route." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#388E3C;fontSize=14;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="500" y="250" width="600" height="95" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="routing" value="3. ROUTE MATCHING&lt;br&gt;&lt;br&gt;FastAPI matches: GET /merchants/{merchant_id}&lt;br&gt;Path parameter merchant_id = &quot;M001&quot;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#388E3C;fontSize=14;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="500" y="390" width="600" height="105" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="dependency" value="4. DEPENDENCY INJECTION&lt;br&gt;&lt;br&gt;Depends(get_db) executes get_db() and provides a SQLAlchemy Session to the route.&lt;br&gt;&lt;b&gt;db: Session&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#F57C00;fontSize=14;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="500" y="540" width="600" height="120" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="route" value="5. ROUTE FUNCTION RUNS&lt;br&gt;&lt;br&gt;get_merchant(merchant_id=&quot;M001&quot;, db=db)&lt;br&gt;The route passes the ID and database session to the service/query logic." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#388E3C;fontSize=14;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="500" y="705" width="600" height="105" as="geometry"/>
+        </mxCell>
+
+        <!-- SQLAlchemy -->
+        <mxCell id="query" value="6. SQLALCHEMY BUILDS QUERY&lt;br&gt;&lt;br&gt;select(Merchant).where(Merchant.merchant_id == merchant_id)&lt;br&gt;&lt;br&gt;SQLAlchemy translates Python ORM/query expression into SQL." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#7B1FA2;fontSize=14;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="500" y="850" width="600" height="125" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="execute" value="7. DATABASE QUERY EXECUTES&lt;br&gt;&lt;br&gt;db.execute(query)&lt;br&gt;SQLAlchemy sends the generated SQL through the database connection to PostgreSQL." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#7B1FA2;fontSize=14;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="500" y="1015" width="600" height="105" as="geometry"/>
+        </mxCell>
+
+        <!-- PostgreSQL -->
+        <mxCell id="postgres" value="8. POSTGRESQL&lt;br&gt;&lt;br&gt;PostgreSQL searches the merchants table using the merchant_id primary key.&lt;br&gt;&lt;br&gt;Example: merchant_id = M001" style="shape=cylinder;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;fillColor=#E1F5FE;strokeColor=#0277BD;fontSize=14;fontStyle=1;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="500" y="1160" width="600" height="125" as="geometry"/>
+        </mxCell>
+
+        <!-- Decision -->
+        <mxCell id="decision" value="9. WAS A MERCHANT FOUND?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#F9A825;fontSize=15;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="650" y="1330" width="300" height="160" as="geometry"/>
+        </mxCell>
+
+        <!-- Not found -->
+        <mxCell id="notfound" value="10A. NOT FOUND&lt;br&gt;&lt;br&gt;No matching row exists.&lt;br&gt;&lt;br&gt;Raise HTTPException(status_code=404)&lt;br&gt;&lt;br&gt;FastAPI returns JSON error response." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEBEE;strokeColor=#C62828;fontSize=14;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1560" width="520" height="150" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="errorresponse" value="11A. HTTP 404 RESPONSE&lt;br&gt;&lt;br&gt;Client receives an error such as:&lt;br&gt;{ &quot;detail&quot;: &quot;Merchant not found&quot; }" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEBEE;strokeColor=#C62828;fontSize=14;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1780" width="520" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- Found -->
+        <mxCell id="found" value="10B. FOUND&lt;br&gt;&lt;br&gt;SQLAlchemy extracts the database result.&lt;br&gt;Result is converted into a Merchant SQLAlchemy object." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#388E3C;fontSize=14;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="1560" width="520" height="150" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="pydantic" value="11B. PYDANTIC RESPONSE VALIDATION&lt;br&gt;&lt;br&gt;FastAPI uses the response_model, e.g. MerchantResponse.&lt;br&gt;&lt;br&gt;Pydantic validates and serializes the returned data." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#F57C00;fontSize=14;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="1780" width="520" height="150" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="json" value="12B. FASTAPI CREATES JSON RESPONSE&lt;br&gt;&lt;br&gt;Example:&lt;br&gt;{ &quot;merchant_id&quot;: &quot;M001&quot;, &quot;company_name&quot;: &quot;Example Cafe&quot;, ... }" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1976D2;fontSize=14;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="2000" width="520" height="145" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="response" value="13. CLIENT RECEIVES HTTP 200&lt;br&gt;&lt;br&gt;Successful response containing the merchant data as JSON." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1976D2;fontSize=14;fontStyle=1;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="2215" width="520" height="105" as="geometry"/>
+        </mxCell>
+
+        <!-- Connections main -->
+        <mxCell id="e1" edge="1" parent="1" source="client" target="request" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;endArrow=block;html=1;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="request" target="routing" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;endArrow=block;html=1;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="routing" target="dependency" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;endArrow=block;html=1;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="dependency" target="route" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;endArrow=block;html=1;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="route" target="query" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;endArrow=block;html=1;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="query" target="execute" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;endArrow=block;html=1;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="execute" target="postgres" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;endArrow=block;html=1;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="postgres" target="decision" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;endArrow=block;html=1;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Decision branches -->
+        <mxCell id="e9" value="NO" edge="1" parent="1" source="decision" target="notfound" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;endArrow=block;html=1;strokeColor=#C62828;fontStyle=1;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e10" value="YES" edge="1" parent="1" source="decision" target="found" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;endArrow=block;html=1;strokeColor=#388E3C;fontStyle=1;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="notfound" target="errorresponse" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;endArrow=block;html=1;strokeColor=#C62828;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="found" target="pydantic" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;endArrow=block;html=1;strokeColor=#388E3C;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="pydantic" target="json" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;endArrow=block;html=1;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="json" target="response" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;endArrow=block;html=1;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Return paths -->
+        <mxCell id="e15" value="HTTP 404" edge="1" parent="1" source="errorresponse" target="client" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;endArrow=block;html=1;dashed=1;strokeColor=#C62828;fontStyle=1;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e16" value="HTTP 200" edge="1" parent="1" source="response" target="client" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;endArrow=block;html=1;dashed=1;strokeColor=#1976D2;fontStyle=1;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Layer labels -->
+        <mxCell id="label1" value="HTTP / API LAYER" style="text;html=1;strokeColor=none;fillColor=none;fontSize=12;fontStyle=1;fontColor=#1976D2;align=left;" vertex="1" parent="1">
+          <mxGeometry x="300" y="115" width="160" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="label2" value="APPLICATION / BUSINESS LAYER" style="text;html=1;strokeColor=none;fillColor=none;fontSize=12;fontStyle=1;fontColor=#388E3C;align=left;" vertex="1" parent="1">
+          <mxGeometry x="250" y="245" width="220" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="label3" value="DATABASE ACCESS LAYER" style="text;html=1;strokeColor=none;fillColor=none;fontSize=12;fontStyle=1;fontColor=#7B1FA2;align=left;" vertex="1" parent="1">
+          <mxGeometry x="285" y="845" width="180" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="label4" value="DATABASE" style="text;html=1;strokeColor=none;fillColor=none;fontSize=12;fontStyle=1;fontColor=#0277BD;align=left;" vertex="1" parent="1">
+          <mxGeometry x="355" y="1155" width="110" height="25" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -2,9 +2,12 @@
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <excludeFolder url="file://$MODULE_DIR$/01-data-pipeline/.venv" />
+      <sourceFolder url="file://$MODULE_DIR$/02-rest-api/merchant_rest_api" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/.venv" />
+      <excludeFolder url="file://$MODULE_DIR$/01 - End-to-End Payments Data Pipeline ( Ingestion and ETL Automation )/.venv" />
+      <excludeFolder url="file://$MODULE_DIR$/02-rest-api/merchant_rest_api/.venv" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.11 virtualenv at ~/Desktop/python-data-engineering-roadmap/01-data-pipeline/.venv" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.11 virtualenv at ~/Desktop/python-data-engineering-roadmap/02-rest-api/merchant_rest_api/.venv" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

@@ -1,0 +1,185 @@
+Project 2 — Merchant REST API: Complete Step-by-Step Breakdown
+
+
+Phase 1 — Project Setup
+Define Project 3 scope and architecture
+Create the project folder structure
+Create Python virtual environment
+Install FastAPI
+Install Uvicorn
+Install PostgreSQL driver
+Create .env configuration
+Create .gitignore
+Initialise Git repository
+Create basic FastAPI application
+Run the API locally
+Test /docs
+
+Phase 2 — Database Connection
+Review the existing PostgreSQL database
+Identify merchants table
+Identify transactions table
+Identify primary and foreign keys
+Create database connection module
+Create database session
+Configure environment-based database credentials
+Test database connection from FastAPI
+
+Phase 3 — Merchant API
+
+Create merchant Pydantic schema
+Create merchant database/model layer
+Create merchant service layer
+Create GET /merchants
+Retrieve merchants from PostgreSQL
+Return merchants as JSON
+Add response validation
+Test GET /merchants
+Create GET /merchants/{merchant_id}
+Add path parameter validation
+Handle merchant-not-found errors
+Test individual merchant retrieval
+
+
+Phase 4 — Transaction API
+
+Create transaction Pydantic schema
+Create transaction database/model layer
+Create transaction service layer
+Create GET /transactions
+Retrieve transactions from PostgreSQL
+Return transactions as JSON
+Add response validation
+Test GET /transactions
+Create GET /transactions/{transaction_id}
+Add transaction ID validation
+Handle transaction-not-found errors
+Test individual transaction retrieval
+
+
+Phase 5 — Merchant → Transactions
+
+Create GET /merchants/{merchant_id}/transactions
+Validate merchant ID
+Query transactions belonging to the merchant
+Handle merchant-not-found cases
+Return merchant transaction data
+Test the endpoint
+
+
+Phase 6 — Query Parameters
+
+51. Add transaction filtering
+52. Add merchant filtering
+Add date filtering
+Add transaction amount filtering
+Add pagination
+Add limit
+Add offset
+Validate query parameters
+Test combinations of filters
+
+
+Phase 7 — Create Transactions
+
+60. Design POST /transactions
+Create request Pydantic schema
+Validate required fields
+Validate data types
+Validate transaction amount
+Validate merchant ID
+Validate transaction status/type fields
+Create transaction service
+Insert transaction into PostgreSQL
+Return created transaction
+Handle database errors
+Test successful POST
+Test invalid POST requests
+Test non-existent merchant
+
+
+Phase 8 — Dependency Injection
+
+Understand FastAPI dependency injection
+Create database dependency
+Inject database session into routes
+Remove direct database connection logic from routes
+Test dependency lifecycle
+Refactor services to use injected dependencies
+
+
+Phase 9 — Error Handling
+Create consistent API error responses
+Handle 404 errors
+Handle 400 validation/business errors
+Handle database errors
+Handle unexpected server errors
+Test error scenarios
+Phase 10 — Clean Architecture
+Separate routers
+Separate schemas
+Separate models
+Separate services
+Separate database configuration
+Separate dependencies
+Separate application entry point
+Review imports and responsibilities
+Remove duplicated logic
+Add configuration management
+Add logging
+
+
+Phase 11 — API Testing
+Set up pytest
+Create API test structure
+Test GET /merchants
+Test GET /merchants/{merchant_id}
+Test GET /transactions
+Test GET /transactions/{transaction_id}
+Test GET /merchants/{merchant_id}/transactions
+Test POST /transactions
+Test validation failures
+Test 404 errors
+Test database-related failures
+Run the complete test suite
+
+
+Phase 12 — API Documentation
+
+Review automatically generated Swagger documentation
+Review OpenAPI schema
+Add endpoint descriptions
+Add request examples
+Add response examples
+Document parameters
+Document error responses
+
+
+Phase 13 — Security & Production Basics
+
+Remove hard-coded credentials
+Verify .env is excluded from Git
+Validate incoming API data
+Restrict database access to the application
+Review SQL injection protection
+Add basic API authentication concepts
+Review CORS
+Review production configuration
+
+
+Phase 14 — Final Project
+
+Run PostgreSQL
+Run FastAPI
+Test every endpoint
+Test Swagger
+Run all automated tests
+Review project architecture
+Clean the codebase
+Update README
+Document database requirements
+Document API endpoints
+Document how to run the project
+Commit project to Git
+Push project to GitHub
+Final portfolio/project review

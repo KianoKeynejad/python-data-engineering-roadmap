@@ -8,8 +8,8 @@ __pycache__/
 *.log
 
 # Project 1
-01-payment-transaction-ingestion/data/raw/
-01-payment-transaction-ingestion/data/processed/
+01 - End-to-End Payments Data Pipeline ( Ingestion and ETL Automation )/data/raw/
+01 - End-to-End Payments Data Pipeline ( Ingestion and ETL Automation )/data/processed/
 
 # Project 3
 03-rest-api/merchant_rest_api/*.csv
