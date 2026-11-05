@@ -2,12 +2,12 @@
 
 from sqlalchemy import select
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import SQLAlchemyError
 from app.models import Merchant, Transaction
-from datetime import datetime, timezone
 from app.schemas import TransactionCreate
+from datetime import datetime, timezone
 from fastapi import HTTPException
 from uuid import uuid4
-from sqlalchemy.exc import SQLAlchemyError
 import logging
 
 logger = logging.getLogger(__name__)
