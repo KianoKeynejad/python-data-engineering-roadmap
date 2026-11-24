@@ -1,0 +1,290 @@
+New Project 1 — End-to-End Payments Data Pipeline
+
+Phase 1 - Project Setup
+1. Define the project scope and objectives
+2. Create the project folder structure
+3. Create a Python virtual environment
+4. Install required Python libraries
+5. Create requirements.txt
+6. Create .env and .gitignore
+7. Initialise Git repository
+8. Create the project README
+
+Phase 2 - Read Payment Transaction Data
+1. Define the input file path
+2. Check if the file exists
+3. Read the CSV file
+4. Load the data into pandas
+5. Handle file loading errors
+6. Log the ingestion process
+
+Phase 3 - Explore and Inspect the Data
+1. Display the first rows
+2. Check the number of rows and columns
+3. Inspect column names
+4. Check data types
+5. Review summary statistics
+6. Identify missing values
+7. Identify duplicate records
+8. Inspect payment statuses
+9. Inspect merchant IDs
+10. Inspect transaction dates and amounts
+
+Phase 4 - Validate the Data
+1. Check required columns
+2. Validate transaction IDs
+3. Validate merchant IDs
+4. Validate transaction amounts
+5. Validate payment statuses
+6. Validate transaction dates
+7. Check for missing values
+8. Check for duplicate transactions
+9. Check merchant references against merchant data
+10. Log validation errors
+
+Phase 5 - Clean and Transform the Data
+1. Standardise column names
+2. Remove leading and trailing whitespace
+3. Convert columns to the correct data types
+4. Convert transaction dates to datetime
+5. Handle missing values
+6. Handle duplicate transactions
+7. Standardise payment statuses
+8. Validate and clean transaction amounts
+9. Apply business rules
+10. Prepare the final dataset
+
+Phase 6 - Save the Cleaned Data
+1. Define the output file path
+2. Create the output directory if required
+3. Save cleaned data to CSV
+4. Verify the output file exists
+5. Reload the file and verify the data
+6. Log the cleaning results
+
+Phase 7 - Set Up PostgreSQL
+1. Install and configure PostgreSQL
+2. Create the payments database
+3. Create the merchants table
+4. Create the transactions table
+5. Define primary keys
+6. Define foreign keys
+7. Define column data types
+8. Add required constraints
+9. Create database indexes
+10. Verify the database schema
+
+Phase 8 - Connect Python to PostgreSQL
+1. Install SQLAlchemy and the PostgreSQL driver
+2. Configure database credentials in .env
+3. Load environment variables
+4. Define the database connection URL
+5. Create the SQLAlchemy engine
+6. Create the database session
+7. Test the database connection
+8. Handle database connection errors
+9. Log connection results
+
+Phase 9 - Load Data into PostgreSQL
+1. Load the cleaned transactions CSV
+2. Prepare records for database insertion
+3. Check for existing transactions
+4. Prevent duplicate transaction insertion
+5. Insert transactions into PostgreSQL
+6. Load merchant data if required
+7. Commit the database transaction
+8. Roll back failed transactions
+9. Verify inserted records
+10. Reconcile source and database row counts
+11. Log the loading results
+
+Phase 10 - Build SQL Queries for Payments Analytics
+1. Retrieve all transactions
+2. Filter transactions by payment status
+3. Filter transactions by merchant ID
+4. Filter transactions by date range
+5. Calculate total transaction value (TTV)
+6. Calculate transaction counts
+7. Calculate successful and failed payment counts
+8. Calculate transaction totals by merchant
+9. Calculate transaction totals by payment status
+10. Calculate daily transaction totals
+11. Join transactions with merchant data
+12. Validate query results
+
+Phase 11 - Automate the ETL Pipeline
+1. Create the extraction function
+2. Create the validation function
+3. Create the cleaning and transformation function
+4. Create the database loading function
+5. Create the reconciliation function
+6. Create a main pipeline function
+7. Execute pipeline steps in sequence
+8. Handle errors at each stage
+9. Add logging throughout the pipeline
+10. Track pipeline execution status
+11. Prevent duplicate processing
+12. Test repeated pipeline executions
+
+Phase 12 - Add Data Quality Checks
+1. Check required columns
+2. Check null values
+3. Check duplicate transactions
+4. Check transaction ID uniqueness
+5. Check valid transaction amounts
+6. Check valid payment statuses
+7. Check valid merchant references
+8. Compare source and target row counts
+9. Reconcile transaction totals
+10. Record data quality failures
+
+Phase 13 - Add Error Handling and Logging
+1. Configure Python logging
+2. Log pipeline start and completion
+3. Log records extracted
+4. Log records validated
+5. Log records rejected
+6. Log records inserted
+7. Log database errors
+8. Log data quality failures
+9. Handle file errors
+10. Handle database errors
+11. Handle unexpected exceptions
+
+Phase 14 - Write Automated Tests
+1. Set up pytest
+2. Test CSV file loading
+3. Test missing file handling
+4. Test data validation
+5. Test data cleaning
+6. Test duplicate detection
+7. Test transformation logic
+8. Test SQL query results
+9. Test database loading
+10. Test duplicate prevention
+11. Test error handling
+12. Test end-to-end pipeline execution
+
+Phase 15 - Add Incremental Data Loading
+1. Identify new transactions
+2. Identify previously processed transactions
+3. Define a unique transaction identifier
+4. Retrieve existing transaction IDs
+5. Select new transactions for processing
+6. Insert new transactions only
+7. Handle updated transaction records
+8. Track the last successful pipeline run
+9. Verify incremental loading results
+10. Test repeated executions
+
+Phase 16 - Create the Final Project Documentation
+1. Document the project objectives
+2. Document the project architecture
+3. Document the folder structure
+4. Document the technologies used
+5. Document the pipeline workflow
+6. Document data validation rules
+7. Document database tables and relationships
+8. Document SQL analytics queries
+9. Document logging and error handling
+10. Document automated tests
+11. Add example pipeline outputs
+12. Add setup and installation instructions
+13. Add instructions to run the pipeline
+14. Document known limitations
+
+Phase 17 - Final Review and GitHub
+1. Run the complete pipeline
+2. Run all automated tests
+3. Verify the PostgreSQL data
+4. Verify the analytics query results
+5. Review the project structure
+6. Review the Python code
+7. Check that credentials are excluded from Git
+8. Check git status
+9. Stage the intended files
+10. Commit the changes
+11. Push the project to GitHub
+12. Verify the repository contents
+
+
+
+Phase 18 — Docker Pipeline Setup
+1. Understand Docker fundamentals.
+2. Create a Dockerfile.
+3. Create .dockerignore.
+4. Build the Docker image.
+5. Run the pipeline inside a container.
+6. Configure environment variables.
+7. Connect the container to PostgreSQL.
+8. Use Docker Compose to manage the pipeline and database.
+9. Test the complete pipeline using Docker.
+10. Document how to build and run the containers.
+
+
+
+Phase 5 — Clean and Transform the Data
+For this phase, create a new file:
+src/transform.py
+
+
+
+1. Phase breakdown
+#	Step	What we will do
+1	Standardise column names	Convert column names to lowercase, snake_case
+2	Remove whitespace	Remove leading/trailing spaces from text values
+3	Correct data types	Convert columns to appropriate numeric, string and other types
+4	Convert dates	Convert transaction dates to Pandas datetime
+5	Handle missing values	Decide how to handle missing values in each relevant column
+6	Handle duplicates	Remove or flag duplicate transactions based on our rules
+7	Standardise payment statuses	Make status values consistent
+8	Clean transaction amounts	Identify and handle invalid amounts
+9	Apply business rules	Apply payment-specific rules to transaction records
+10	Prepare final dataset	Produce a clean DataFrame ready for database loading
+
+2. Python concepts and Pandas methods we will use
+These are the main tools you need for this phase:
+Concept / Method	Purpose
+.rename()	Rename columns
+.str.lower()	Convert text to lowercase
+.str.strip()	Remove whitespace
+.astype()	Convert data types
+pd.to_numeric()	Convert values to numeric
+pd.to_datetime()	Convert dates
+.fillna()	Replace missing values
+.dropna()	Remove rows with missing values
+.drop_duplicates()	Remove duplicate records
+.replace()	Replace values
+.apply()	Apply a function to values
+.copy()	Create an independent DataFrame
+.loc[]	Select and modify rows
+.isna()	Identify missing values
+
+3. Important decisions for our payment dataset
+We should not automatically delete or replace data without understanding its meaning.
+
+Examples:
+- Missing Merchant ID: investigate; don't invent an ID.
+- Missing Transaction Amount: flag the record.
+- Duplicate ID: investigate before removing.
+- Negative transaction amounts: determine whether they represent refunds or reversals.
+- Different payment status formats: standardise formatting without changing the actual status meaning.
+- Missing Surcharge: determine whether it means zero or unknown.
+We will preserve the original raw CSV and create a separate cleaned dataset.
+4. Expected project structure
+src/
+├── ingest.py
+├── explore.py
+├── validate.py
+└── transform.py
+
+
+5. How we will implement this phase
+We will work through each of the 10 steps individually:
+1. Understand the requirement.
+2. Write the code ourselves.
+3. Run it against the transaction dataset.
+4. Inspect the output.
+5. Confirm the transformation is correct.
+6. Move to the next step.
+We will not build the entire transformation script in one go.

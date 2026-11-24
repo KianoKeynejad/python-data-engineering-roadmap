@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Environment variables
+.env
+.env.*
+
+# Logs
+*.log
+
+# Data files
+data/raw/*.csv
+data/processed/
+
+# IDE and macOS
+.idea/
+.DS_Store

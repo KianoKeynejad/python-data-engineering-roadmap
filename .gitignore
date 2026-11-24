@@ -24,10 +24,10 @@ __pycache__/
 
 
 # ============================================================
-# PROJECT 1 - DATA PIPELINE
-# ============================================================
-01 - End-to-End Payments Data Pipeline ( Ingestion and ETL Automation )/data/raw/
-01 - End-to-End Payments Data Pipeline ( Ingestion and ETL Automation )/data/processed/
+# PROJECT 1 - END-TO-END PAYMENTS DATA PIPELINE
+# ===========================================================
+1-End-to-End-Payments-Data-Pipeline/data/raw/*.csv
+1-End-to-End-Payments-Data-Pipeline/data/processed/
 
 
 # ============================================================
@@ -40,7 +40,7 @@ __pycache__/
 # ============================================================
 # LOCAL PRACTICE & PERSONAL NOTES
 # ============================================================
-KianoTest.py
+1-End-to-End-Payments-Data-Pipeline/src/KianoTest.py
 Project 2 Steps Breakdown.txt
 Python Data Engineering roadmap.docx
 python_practice/
@@ -54,7 +54,7 @@ python_practice/
 
 # Personal and development files
 /.idea/
-/KianoTest.py
+/1-End-to-End-Payments-Data-Pipeline/src/KianoTest.py
 /Python Data Engineering roadmap.docx
 /merchants.csv
 /python_practice/
