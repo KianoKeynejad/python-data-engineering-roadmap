@@ -268,54 +268,76 @@ def prepare_final_dataset(df):
 
 
 if __name__ == "__main__":
-
-    # Load raw transaction data
     df = load_transactions()
 
-    # Step 1: Standardise column names
     df = standardise_column_names(df)
 
-    # Step 2: Remove whitespace
     df = remove_whitespace(df)
 
-    # Step 3: Convert data types
     df = convert_data_types(df)
 
-    # Step 4: Convert dates
     df = convert_dates(df)
 
-    # Step 5: Handle missing values
     df = handle_missing_values(df)
 
-    # Step 6: Handle duplicates
     df = handle_duplicates(df)
 
-    # Step 7: Standardise payment statuses
     df = standardise_payment_statuses(df)
 
-    # Step 8: Clean transaction amounts
     df = clean_transaction_amounts(df)
 
-    # Step 9: Apply business rules
     df = apply_business_rules(df)
 
-    # Step 10: Prepare final dataset
     df = prepare_final_dataset(df)
 
     # Display final dataset information
-    print("\nFinal dataset:")
     print(df.head())
-
-    print("\nDataset dimensions:")
     print(df.shape)
-
-    print("\nData types:")
     print(df.dtypes)
 
+# Save the Cleaned Data
 
-# Save cleaned transactions to CSV
-OUTPUT_FILE = PROJECT_DIR / "data" / "processed" / "transactions_cleaned.csv"
+    # Step 1: Define the output file path
+    OUTPUT_DIR = PROJECT_DIR / "data" / "processed"
+    OUTPUT_FILE = OUTPUT_DIR / "transactions_cleaned.csv"
 
-df.to_csv(OUTPUT_FILE, index=False)
+    # Step 2: Create the output directory if required
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-print(f"\nCleaned dataset saved to: {OUTPUT_FILE}")
+    # Step 3: Save cleaned data to CSV
+    df.to_csv(OUTPUT_FILE, index=False)
+
+    logger.info("Cleaned data saved to %s", OUTPUT_FILE)
+
+    # Step 4: Verify the output file exists
+    if not OUTPUT_FILE.exists():
+        raise FileNotFoundError(OUTPUT_FILE)
+
+    logger.info("Output file successfully created")
+
+    # Step 5: Reload the file and verify the data
+    df_reloaded = pd.read_csv(
+        OUTPUT_FILE,
+        parse_dates=["transaction_date"],
+        dtype={
+            "id": "string",
+            "merchant_id": "string",
+            "last_4": "string",
+        },
+    )
+
+    pd.testing.assert_frame_equal(
+        df.reset_index(drop=True),
+        df_reloaded.reset_index(drop=True),
+        check_dtype=False,
+    )
+
+    logger.info("Reloaded data successfully verified")
+
+    # Step 6: Log the cleaning results
+    logger.info(
+        "Phase 6 completed: %s records and %s columns saved",
+        df_reloaded.shape[0],
+        df_reloaded.shape[1],
+    )
+
